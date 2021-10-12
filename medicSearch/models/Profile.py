@@ -8,7 +8,11 @@ class Profile(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
     token= models.CharField(max_length=255, null=True, blank=True)
-
+    image = models.ImageField(null=True, blank = True)
+    favorites = models.ManyToManyField(User, blank=True, related_name='favorites')
+    specialties = models.ManyToManyField(Speciality, blank=True, related_name='specialties')
+    addresses = models.ManyToManyField(Address, blank=True, related_name='addresses')
+   
     def __str__(self) -> str:
         return '{}'.format(self.user.username)
 
@@ -26,5 +30,3 @@ class Profile(models.Model):
             instance.profile.save()
         except:
             pass
-        
-    
